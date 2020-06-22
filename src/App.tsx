@@ -1,26 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Person from './Person/Person'
 
-function App() {
-  return (
+const App: React.FC = () =>{
+  return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hi i'm the React App</h1>
+      <p>This is realy working</p>
+      <Person name='Mali' age="22" />
+      <Person name='Bakii' age="55"> </Person>
+      <Person name='Aladin' age="99" />
     </div>
   );
-}
+};
 
 export default App;
