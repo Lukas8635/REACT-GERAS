@@ -1,13 +1,19 @@
 import React from 'react';
+import './UserOutput.css';
 
-const userOutput = ()=> {
+
+interface UserOutProps  {
+    userName:string;
+}
+
+const userOutput = (props:UserOutProps)=> {
     return  (
-        <div>
-            <p>Some random text</p>
+        <div className='OutputStyle'>
+            <p>UserName:{props.userName}</p>
             <p>I hope I'll be ovewritten</p>
         </div>
     )
-}
+} 
 
 
 
