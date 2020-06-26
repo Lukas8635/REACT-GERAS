@@ -10,6 +10,7 @@ interface PersonTypes {
     
     
     
+    
 };
 
 const person = (props:PersonTypes ) => {
