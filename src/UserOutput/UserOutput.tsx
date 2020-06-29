@@ -3,7 +3,8 @@ import './UserOutput.css';
 
 
 interface UserOutProps  {
-    userName:string;
+    userName?:string;
+    id?:string;
 }
 
 const userOutput = (props:UserOutProps)=> {

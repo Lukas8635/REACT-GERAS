@@ -1,60 +1,95 @@
-import React , { useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
+import { render } from 'react-dom';
 import Person from './Person/Person';
 
 
+interface PersonInterface {
+    name: string;
+    age: number;
+    id: string;
+    hobby?: string;
+}
+
+interface PersonStateInterface {
+    persons: PersonInterface[]
+}
+
 const App  = () => {
 
-  const [personsState, setPersonsState] =  useState<any>({
+  const [personsState, setPersonsState] = useState<PersonStateInterface>({
         persons:[
-              {name:'max', age:28},
-              {name:'manu', age:29},
-              {name:'aladin', age:26},
-              {name:'simba', age:33}
-            ],
-        otherState:'some other value',
-        showPersons:false
-        
-        
-  });  
+            { name:'max', age:28, id: '1', hobby: 'My hobby is Fishing' },
+            { name:'manu', age:29, id: '2' },
+            { name:'aladin', age:26, id: '3' },
+            { name:'simba', age:33, id: '4' }
+        ],
+  });
 
-  const  switchNameHandrel = (newName:string, ) =>{
-        setPersonsState ({
-          persons:[
-            {name: newName, age:28},
-            {name:'manu', age:29},
-            {name:'aladin', age:26},
-            {name:newName, age:35455},
-            {name:'aladadas', age:451 }
-          ]
-        });
+  const [showPersonsState, setShowPersonsState] = useState(false);
 
-  };
+ 
   
-  const nameChangeHandler = (event:any)=>
-    setPersonsState ({
-      persons:[
-        {name: 'max', age:28},
-        {name:event.target.value , age:29},
-        {name:'aladin', age:26},
-        {name:'tom', age:35455},
-      ],
-      
-    }); 
-    {
+  const nameChangeHandler = (event: ChangeEvent<HTMLInputElement>)=> {
+      const target = event.target;
+      const targetValue = target.value;
+      const targetId = target.getAttribute('id');
+      let newState;
 
+      setPersonsState((oldPersons) => {
+          let findingPerson;
+
+          for (let i = 0; i < oldPersons.persons.length; i++) {
+              if (oldPersons.persons[i].id === targetId) {
+                  findingPerson = oldPersons.persons[i];
+              }
+          }
+
+          newState = {
+              persons: [
+                  ...oldPersons.persons,
+              ]
+          };
+
+          if (findingPerson) {
+              findingPerson.name = targetValue;
+
+                newState = {
+                    persons: [
+                        ...oldPersons.persons,
+                        
+                    ]
+                };
+            }
+
+          return newState
+      });
+  };
+
+  
     const stylez = {
       backgroundColor:'white',
       font:'inherit',
       border:'1px solid blue',
       padding:'8px',
       cursor:'pointer'
-    } 
+    };
+
+
+  const deletePersonHandler =(personIndex:number) =>{
+    const personas = [...personsState.persons];
+    personas.splice(personIndex, 1);
+    setPersonsState({persons:personas})
+  }
 
   const togglePersonsHandler = () => {
-      const doesShow = personsState.showPersons;
-      setPersonsState({showPersons:!doesShow})
-    } 
+    setShowPersonsState((prevState => {
+        const newState = prevState ? false : true;
+        return newState;
+    }))
+
+
+    };
   
 
       return(
@@ -65,28 +100,26 @@ const App  = () => {
                 style={stylez}
                 onClick={togglePersonsHandler}>Swich button
             </button>
-            
-            { personsState.showPersons === true ? 
+              
+            { showPersonsState === true ?
               <div>
-              <Person
-                  name={personsState.persons[0].name } 
-                  age={personsState.persons[0].age } /> 
-
-              <Person 
-                  name={personsState.persons[1].name } 
-                  age={personsState.persons[1].age }
-                  click = {()=>switchNameHandrel.bind('max')}
-                  changed={nameChangeHandler}>My hobbie: fishing
-              </Person> 
-
-              <Person  
-                  name={personsState.persons[2].name }
-                  age={personsState.persons[2].age } />
-            </div> : null }
+                  {
+                      personsState.persons.map((person, index) => {
+                         return <Person
+                             click= {()=> deletePersonHandler(index) }
+                             hobby={person.hobby}
+                             key={person.id}
+                             name={person.name }
+                             age={person.age }
+                             changed={nameChangeHandler}
+                              />
+              
+                      })
+                  }
+              </div> : null 
+            }
 
         </div>
       );
-    }
-
 };
 export default App; 
