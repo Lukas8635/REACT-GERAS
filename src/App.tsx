@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, DetailedHTMLProps, ButtonHTMLAttributes } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.css';
 import { render } from 'react-dom';
 import Person from './Person/Person';
@@ -33,7 +33,7 @@ interface PersonStateInterface {
     [x: string]: any;
     persons: PersonInterface[];
     showPersonState?:boolean;
-    stilius?:ThemedStyledProps<Pick<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>;
+    stilius?:ThemedStyledProps<HTMLButtonElement>;
 
 }
 
