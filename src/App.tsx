@@ -1,12 +1,12 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, DetailedHTMLProps, ButtonHTMLAttributes } from 'react';
 import './App.css';
 import { render } from 'react-dom';
 import Person from './Person/Person';
-import styled from 'styled-components';
+import styled, { ThemedStyledProps } from 'styled-components';
 
 
 const StyledButton = styled.button`
-    background-color:green;
+    background-color:${props => props.stilius ? 'red': 'green'};
     color:white;
     font:inherit;
     border:1px solid blue;
@@ -25,11 +25,16 @@ interface PersonInterface {
     age: number;
     id: string;
     hobby?: string;
+    
 
 }
 
 interface PersonStateInterface {
-    persons: PersonInterface[]
+    [x: string]: any;
+    persons: PersonInterface[];
+    showPersonState?:boolean;
+    stilius?:ThemedStyledProps<Pick<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>;
+
 }
 
 const App  = () => {
