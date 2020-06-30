@@ -2,9 +2,22 @@ import React, { ChangeEvent, useState } from 'react';
 import './App.css';
 import { render } from 'react-dom';
 import Person from './Person/Person';
+import styled from 'styled-components';
 
 
+const StyledButton = styled.button`
+    background-color:green;
+    color:white;
+    font:inherit;
+    border:1px solid blue;
+    padding:8px;
+    cursor:pointer;
 
+    &:hover{
+        background-color: lightgreen;
+        color:black;
+    }
+`;
 
 
 interface PersonInterface {
@@ -86,7 +99,7 @@ const App  = () => {
     };
    
     const stylez = {
-        backgroundColor:'green',
+        backgroundColor:'red',
         color:'white',
         font:'inherit',
         border:'1px solid blue',
@@ -116,11 +129,11 @@ const App  = () => {
                   
                     }
               </div> )
-                      stylez.backgroundColor='red';
-                      stylez[':hover']={
-                        backgroundColor: 'salmon',
-                        color:'black'
-                    }
+                    //   stylez.backgroundColor='red';
+                    //   stylez[':hover']={
+                    //     backgroundColor: 'salmon',
+                    //     color:'black'
+                    // }
                 }   
             
     
@@ -138,11 +151,11 @@ const App  = () => {
             <h1 >Hi i'm a React App</h1>
             <p className={classes.join(' ')}>This is realy working</p>
            
-                    <button 
-                        style={stylez}
+                    <StyledButton
+                        stilius = {personsState.showPersonsState}
                         onClick={togglePersonsHandler}>    
                         Swich button 
-                    </button>
+                    </StyledButton>
                     {personas}
         </div>
         
