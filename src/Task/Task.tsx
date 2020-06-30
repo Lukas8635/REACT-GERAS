@@ -1,12 +1,18 @@
 import React ,{ChangeEvent, useState} from'react';
 import '../App.css';
-import { render } from 'react-dom';
+
 import Validation from '../Validation/Validation';
+import Char from '../Char/Char'
+
+
+
 
 interface Inputas {
     
     onChange?:(event: ChangeEvent<HTMLInputElement>) => void;
     userInput:string;
+    
+    
    
     
 }
@@ -25,9 +31,20 @@ const Apsas:React.FC = ()=> {
        setInputState({userInput:event.target.value});
         
 }
+    const deleteCharHandler = ( index:number ) =>{
+        const text = inputState.userInput.split('');
+        text.splice(index, 1); 
+        const updatedText = text.join('');
+        setInputState({userInput:updatedText});
 
+    }
   
-
+        const charList = inputState.userInput.split('').map((ch, index) =>{
+            return <Char 
+            character ={ch}
+            key={index}
+            clicked ={()=>deleteCharHandler(index)}/>
+        })
      
         return (
              <div>
@@ -43,8 +60,9 @@ const Apsas:React.FC = ()=> {
                  <hr/>
                  <input type="text" onChange={inputChangeHandler}
                  value={inputState.userInput}/>
-                 <p>{inputState.userInput}</p>
-                 <Validation />
+                 <p>{inputState.userInput}</p> 
+                 <Validation inputLenght={inputState.userInput.length}/>
+                 {charList}
              </div>
          )
      

@@ -3,15 +3,25 @@ import React from 'react';
 
 
 interface ValidationInterface {
+    inputLenght:number;
 
 }
 
 const validation = (props:ValidationInterface)=>{
-    return(
 
+    let valifdationMessage = 'Text long enough';
+
+    if(props.inputLenght <= 5){
+        valifdationMessage ='Text too short';
+    }
+
+
+
+    return(
         <div>
-            <p>Text too short!</p>
+         <p>{valifdationMessage}</p>
         </div>
+
         
     )
 }

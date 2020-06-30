@@ -1,5 +1,6 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, CSSProperties} from 'react';
 import './Person.css';
+import Radium  from 'radium';
 
 interface PersonTypes {
     name: string;
@@ -9,13 +10,26 @@ interface PersonTypes {
     changed?:(event: ChangeEvent<HTMLInputElement>) => void;
     id?: string;
     hobby?: string;
+    style?:CSSProperties;
+    
+    
+    
     
     
 };
 
+
 const person = (props:PersonTypes ) => {
-return( 
-        <div className="Person">
+
+   const stilius = {
+  "@media (min-width: 500px)":{
+    width:"450px"
+  }
+};
+   
+
+    return( 
+        <div className="Person" style={stilius}>
             <p onClick={props.click}>I'm a {props.name} and I'm a {props.age} !</p>
             {
                 props.hobby ?
@@ -25,6 +39,6 @@ return(
             <input id={props.id} type="text" onChange={props.changed} value={props.name}/>
         </div>
     )
- };
+};
 
- export default person;  
+ export default Radium(person);  

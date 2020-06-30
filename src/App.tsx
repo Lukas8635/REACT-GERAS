@@ -1,7 +1,10 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.css';
 import { render } from 'react-dom';
 import Person from './Person/Person';
+import Radium from 'radium';
+import StyleRoot from 'radium';
+
 
 
 interface PersonInterface {
@@ -65,17 +68,7 @@ const App  = () => {
           return newState
       });
   };
-
-  
-    const stylez = {
-      backgroundColor:'white',
-      font:'inherit',
-      border:'1px solid blue',
-      padding:'8px',
-      cursor:'pointer'
-    };
-
-
+ 
   const deletePersonHandler =(personIndex:number) =>{
     const personas = [...personsState.persons];
     personas.splice(personIndex, 1);
@@ -90,20 +83,25 @@ const App  = () => {
 
 
     };
+   
+    const stylez = {
+        backgroundColor:'green',
+        color:'white',
+        font:'inherit',
+        border:'1px solid blue',
+        padding:'8px',
+        cursor:'pointer',
+        ':hover':{
+            backgroundColor: 'lightgreen',
+            color:'black'
+        }
+      };
   
-
-      return(
-        <div className="App">
-            <h1>Hi i'm a React App</h1>
-            <p>This is realy working</p>
-            <button 
-                style={stylez}
-                onClick={togglePersonsHandler}>Swich button
-            </button>
-              
-            { showPersonsState === true ?
+     let personas;
+        if(showPersonsState){
+            personas =(
               <div>
-                  {
+                 {
                       personsState.persons.map((person, index) => {
                          return <Person
                              click= {()=> deletePersonHandler(index) }
@@ -111,15 +109,43 @@ const App  = () => {
                              key={person.id}
                              name={person.name }
                              age={person.age }
-                             changed={nameChangeHandler}
+                             changed={(event)=>nameChangeHandler(event)}
                               />
-              
                       })
-                  }
-              </div> : null 
-            }
-
+                  
+                    }
+              </div> )
+                      stylez.backgroundColor='red';
+                      stylez[':hover']={
+                        backgroundColor: 'salmon',
+                        color:'black'
+                    }
+                }   
+            
+    
+    const classes = [];
+    if(personsState.persons.length <= 2){
+        classes.push('red');//classes = ['red']
+    }
+    if(personsState.persons.length <= 1 ){
+        classes.push('bold');//classes =['red','bold']
+    }
+    return(
+        <StyleRoot>
+        <div className="App">
+            
+            <h1 >Hi i'm a React App</h1>
+            <p className={classes.join(' ')}>This is realy working</p>
+           
+                    <button 
+                        style={stylez}
+                        onClick={togglePersonsHandler}>    
+                        Swich button 
+                    </button>
+                    {personas}
         </div>
-      );
+        </StyleRoot>
+    );
+
 };
-export default App; 
+export default Radium(App);
