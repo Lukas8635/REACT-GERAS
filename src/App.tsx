@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import './App.css';
 import { render } from 'react-dom';
 import Person from './Person/Person';
-import Radium from 'radium';
-import StyleRoot from 'radium';
+
+
 
 
 
@@ -12,6 +12,7 @@ interface PersonInterface {
     age: number;
     id: string;
     hobby?: string;
+
 }
 
 interface PersonStateInterface {
@@ -131,7 +132,7 @@ const App  = () => {
         classes.push('bold');//classes =['red','bold']
     }
     return(
-        <StyleRoot>
+        
         <div className="App">
             
             <h1 >Hi i'm a React App</h1>
@@ -144,8 +145,8 @@ const App  = () => {
                     </button>
                     {personas}
         </div>
-        </StyleRoot>
+        
     );
 
 };
-export default Radium(App);
+export default App;
