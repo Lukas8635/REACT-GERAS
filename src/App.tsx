@@ -2,22 +2,6 @@ import React, { ChangeEvent, useState } from 'react';
 import './App.css';
 import { render } from 'react-dom';
 import Person from './Person/Person';
-import styled, { ThemedStyledProps } from 'styled-components';
-
-
-const StyledButton = styled.button`
-    background-color:${props => props.stilius ? 'red': 'green'};
-    color:white;
-    font:inherit;
-    border:1px solid blue;
-    padding:8px;
-    cursor:pointer;
-
-    &:hover{
-        background-color: lightgreen;
-        color:black;
-    }
-`;
 
 
 interface PersonInterface {
@@ -33,9 +17,27 @@ interface PersonStateInterface {
     [x: string]: any;
     persons: PersonInterface[];
     showPersonState?:boolean;
-    stilius?:ThemedStyledProps<HTMLButtonElement>;
+    
+    
 
 }
+
+// const StyledButton = styled.button`
+//     background-color: red;
+//     color:white;
+//     font:inherit;
+//     border:1px solid blue;
+//     padding:8px;
+//     cursor:pointer;
+
+//     &:hover{
+//         background-color: salmon ;
+//         color:black;
+//     }
+// `;
+
+
+
 
 const App  = () => {
 
@@ -134,11 +136,11 @@ const App  = () => {
                   
                     }
               </div> )
-                    //   stylez.backgroundColor='red';
-                    //   stylez[':hover']={
-                    //     backgroundColor: 'salmon',
-                    //     color:'black'
-                    // }
+                      stylez.backgroundColor='green';
+                      stylez[':hover']={
+                        backgroundColor: 'salmon',
+                        color:'black'
+                    }
                 }   
             
     
@@ -156,11 +158,11 @@ const App  = () => {
             <h1 >Hi i'm a React App</h1>
             <p className={classes.join(' ')}>This is realy working</p>
            
-                    <StyledButton
-                        stilius = {personsState.showPersonsState}
+                    <button
+                       className="button"
                         onClick={togglePersonsHandler}>    
                         Swich button 
-                    </StyledButton>
+                    </button>
                     {personas}
         </div>
         
