@@ -1,22 +1,19 @@
 import React, { ChangeEvent, useState } from 'react';
-import styleClasses from './App.module.css';
+import styleClasses from '../containers/App.module.css';
+import {PersonTypes} from '../Caomponents/Persons/Person/Person'
 import { render } from 'react-dom';
-import Person from './Person/Person';
+
+import Persons from '../Caomponents/Persons/Persons';
+import Cockpit from '../Caomponents/Cockpit/Cocpit';
 
 
-interface PersonInterface {
-    name: string;
-    age: number;
-    id: string;
-    hobby?: string;
-    
 
-}
 
-interface PersonStateInterface { 
-    // [x: string]: any;
-    persons: PersonInterface[];
+
+export interface PersonStateInterface { 
+    persons: PersonTypes[];
     showPersonState?:boolean;
+    clicked?:()=>void;
 }
 
 const App  = () => {
@@ -82,56 +79,25 @@ const App  = () => {
         return newState;
     }))
 
-
     };
-   
-    
      let personas=null;
      let bntClasses = [styleClasses.Button];
         if(showPersonsState){
-            personas =(
-              <div >
-                 {
-                      personsState.persons.map((person, index) => {
-                         return <Person 
-                            id={person.id}
-                             click= {()=> deletePersonHandler(index) }
-                             hobby={person.hobby}
-                             key={person.id}
-                             name={person.name }
-                             age={person.age }
-                             changed={(event)=>nameChangeHandler(event)}
-                              />
-                              
-                      })
-                  
-                    }
-              </div> ) 
-                     bntClasses.push(styleClasses.Red);
-                    }
-                   
-            
+            personas=<Persons
+                 persons={personsState.persons}
                 
-    const classes = [];
-    if(personsState.persons.length <= 2){
-        classes.push(styleClasses.red);//classes = ['red']
-    }
-    if(personsState.persons.length <= 1 ){
-        classes.push(styleClasses.bold);//classes =['red','bold']
-    }
+                 clicked = {deletePersonHandler}
+                 changed = {nameChangeHandler}/>
+         }
+
     return(
         
         <div className={styleClasses.App}>
+            <Cockpit 
             
-            <h1 >Hi i'm a React App</h1>
-            <p className={classes.join(' ')}>This is realy working</p>
-           
-                    <button
-                       className={bntClasses.join(' ')}
-                        onClick={togglePersonsHandler}>    
-                        Swich button 
-                    </button>
-                    {personas}
+            persons={personsState.persons}
+            clicked={ togglePersonsHandler}/>
+            {personas}
         </div>
         
     );
