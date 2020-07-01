@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import './App.css';
+import styleClasses from './App.module.css';
 import { render } from 'react-dom';
 import Person from './Person/Person';
 
@@ -13,31 +13,11 @@ interface PersonInterface {
 
 }
 
-interface PersonStateInterface {
-    [x: string]: any;
+interface PersonStateInterface { 
+    // [x: string]: any;
     persons: PersonInterface[];
     showPersonState?:boolean;
-    
-    
-
 }
-
-// const StyledButton = styled.button`
-//     background-color: red;
-//     color:white;
-//     font:inherit;
-//     border:1px solid blue;
-//     padding:8px;
-//     cursor:pointer;
-
-//     &:hover{
-//         background-color: salmon ;
-//         color:black;
-//     }
-// `;
-
-
-
 
 const App  = () => {
 
@@ -105,26 +85,16 @@ const App  = () => {
 
     };
    
-    const stylez = {
-        backgroundColor:'red',
-        color:'white',
-        font:'inherit',
-        border:'1px solid blue',
-        padding:'8px',
-        cursor:'pointer',
-        ':hover':{
-            backgroundColor: 'lightgreen',
-            color:'black'
-        }
-      };
-  
-     let personas;
+    
+     let personas=null;
+     let bntClasses = [styleClasses.Button];
         if(showPersonsState){
             personas =(
-              <div>
+              <div >
                  {
                       personsState.persons.map((person, index) => {
-                         return <Person
+                         return <Person 
+                            id={person.id}
                              click= {()=> deletePersonHandler(index) }
                              hobby={person.hobby}
                              key={person.id}
@@ -132,34 +102,32 @@ const App  = () => {
                              age={person.age }
                              changed={(event)=>nameChangeHandler(event)}
                               />
+                              
                       })
                   
                     }
-              </div> )
-                      stylez.backgroundColor='green';
-                      stylez[':hover']={
-                        backgroundColor: 'salmon',
-                        color:'black'
+              </div> ) 
+                     bntClasses.push(styleClasses.Red);
                     }
-                }   
+                   
             
-    
+                
     const classes = [];
     if(personsState.persons.length <= 2){
-        classes.push('red');//classes = ['red']
+        classes.push(styleClasses.red);//classes = ['red']
     }
     if(personsState.persons.length <= 1 ){
-        classes.push('bold');//classes =['red','bold']
+        classes.push(styleClasses.bold);//classes =['red','bold']
     }
     return(
         
-        <div className="App">
+        <div className={styleClasses.App}>
             
             <h1 >Hi i'm a React App</h1>
             <p className={classes.join(' ')}>This is realy working</p>
            
                     <button
-                       className="button"
+                       className={bntClasses.join(' ')}
                         onClick={togglePersonsHandler}>    
                         Swich button 
                     </button>
@@ -169,4 +137,4 @@ const App  = () => {
     );
 
 };
-export default App;
+export default App; 
