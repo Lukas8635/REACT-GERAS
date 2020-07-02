@@ -3,11 +3,12 @@ import React, {ChangeEvent} from 'react';
 import styleClasses from '../../../containers/App.module.css';
 
 export interface PersonTypes {
-    persons?: any;
+    [x: string]: any;
+    
     name?: string;
     age?: number;
     children?:string;
-    clicked?:(e: React.MouseEvent ) => void;
+    clicked?:(event: React.MouseEvent, personIndex: number ) => void;
     changed?:(event: React.ChangeEvent<HTMLInputElement>) => void ;
     id?: string;
     hobby?: string;

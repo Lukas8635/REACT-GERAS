@@ -2,18 +2,14 @@ import React, { ChangeEvent, useState } from 'react';
 import styleClasses from '../containers/App.module.css';
 import {PersonTypes} from '../Caomponents/Persons/Person/Person'
 import { render } from 'react-dom';
-
 import Persons from '../Caomponents/Persons/Persons';
 import Cockpit from '../Caomponents/Cockpit/Cocpit';
-
-
-
-
 
 export interface PersonStateInterface { 
     persons: PersonTypes[];
     showPersonState?:boolean;
-    clicked?:()=>void;
+    clicked?:()=>void| undefined
+    
 }
 
 const App  = () => {
@@ -29,8 +25,6 @@ const App  = () => {
 
   const [showPersonsState, setShowPersonsState] = useState(false);
 
- 
-  
   const nameChangeHandler = (event: ChangeEvent<HTMLInputElement>)=> {
       const target = event.target;
       const targetValue = target.value;
@@ -67,7 +61,7 @@ const App  = () => {
       });
   };
  
-  const deletePersonHandler =(personIndex:number) =>{
+  const deletePersonHandler =(event: React.MouseEvent, personIndex: number) =>{
     const personas = [...personsState.persons];
     personas.splice(personIndex, 1);
     setPersonsState({persons:personas})
@@ -84,6 +78,7 @@ const App  = () => {
      let bntClasses = [styleClasses.Button];
         if(showPersonsState){
             personas=<Persons
+
                  persons={personsState.persons}
                 
                  clicked = {deletePersonHandler}
